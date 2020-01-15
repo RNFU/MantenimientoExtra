@@ -5,19 +5,21 @@ const bodyParser = require('body-parser');
 var mysql = require('mysql');
 //Conectando con MySql
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "usuario",
-  password: "contraseña",
-  database: "base de datos"
+  host: "mysql_db",
+  user: "rnfu",
+  password: "qwer1234",
+  database: "abarrotes"
 });
 
 router.post('/', function(req, res) {
+  console.log('/------------')
   var producto = req.body.producto || ''
+  console.log(producto)
   if (producto!='') {
     	var registro  = req.body;
     	//console.log(registro);
 
-		con.query('INSERRT INTO venta SET ?', registro, function(err, result) {
+		con.query('INSERT INTO ventas SET ?', registro, function(err, result) {
 		  // Neat!
 		  if (err) {
 	            console.log(err.message);
@@ -60,7 +62,8 @@ router.route('/:id')
         var registro  = req.body;
         //console.log(registro);
 
-      con.query('UPDATE ventas SET producto=?, cantidad=?, precio=?, importe=?  WHERE id = ?', [produ,cant,prec,impor,prodId], function(err, result) {
+      con.query('UPDATE ventas SET producto=?, cantidad=?, precio=?, importe=?  WHERE id = ?', 
+        [produ,cant,prec,impor,prodId], function(err, result) {
         if (err) {
             console.log(err.message);
         } else {
@@ -78,7 +81,7 @@ router.route('/:id')
     idDelete = req.params.id;
 
     if(idDelete>0){
-      con.query("DELETE venta WHERE id_venta = ?", idDelete, function(err,results){
+      con.query("DELETE from ventas WHERE id = ?", idDelete, function(err,results){
           if (err)
             res.status(500);
           else
@@ -88,5 +91,6 @@ router.route('/:id')
       res.status(400).end()
     }
   })
+  
 
 module.exports=router;

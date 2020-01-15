@@ -11,10 +11,10 @@ var mysql = require('mysql');
 
 //Conectando con MySql
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "usuario",
-  password: "contraña",
-  database: "basededatos"
+  host: "mysql_db",
+  user: "rnfu",
+  password: "qwer1234",
+  database: "abarrotes"
 });
 
 //usando framework ejs
